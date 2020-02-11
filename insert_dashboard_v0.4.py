@@ -9,7 +9,7 @@ dashboardConfig = configparser.ConfigParser()
 dashboardConfig.read("modifica.ini")
 
 f = open("users.txt", "r")
-dashboard_tmpl = "dashboard_tmpl.ini"
+dashboard_tmpl = "dashboard_tmpl.ini"       #current file ini
 dashboard = open(dashboard_tmpl, "r")
 dashboard_content = dashboard.read()
 dashboard.close()
