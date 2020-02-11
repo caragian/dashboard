@@ -5,4 +5,5 @@
 2. Copy in **"modifica.ini"** the new configuration for dashboards.
 
 Notes
+
 If doesn't exists a **"dashboard.ini"** for a new user, the first **"dashboard.ini"** will be setted by **"dashboard_tmpl.ini"**
