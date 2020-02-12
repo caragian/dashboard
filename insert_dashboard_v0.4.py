@@ -2,20 +2,14 @@ import os
 import configparser
 import stat
 
+#file
 
-#read file
-
-dashboardConfig = configparser.ConfigParser()
-dashboardConfig.read("modifica.ini")
-
-f = open("users.txt", "r")
-dashboard_tmpl = "dashboard_tmpl.ini"
-dashboard = open(dashboard_tmpl, "r")
-dashboard_content = dashboard.read()
-dashboard.close()
+users_file="group1_users.txt"
+dashboard_tmpl = "dashboard.ini"
 
 #every line is a user directory
 
+f = open(users_file, "r")
 user = f.readline()
 user = user.strip("\n")
 list = [user]
@@ -26,21 +20,31 @@ while user:
     list.append(user) 
 f.close()
 
-os.chdir("..")
-
 #create directory dashboard
+
+os.chdir("..")
 
 directory = "dashboards"
 if os.path.exists(directory):
-    os.chdir(directory)
+   os.chdir(directory)
 elif not os.path.exists(directory):
         os.mkdir(directory)
         os.chdir(directory)
 
+#read dashboard template
 
-#create user directory and configuration files for every user
+#directory user template
+user_dash_tmpl="user_dash_tmpl" 
 
-user_ini = "dashboard.ini"
+os.chdir(user_dash_tmpl)
+dashboardConfig = configparser.ConfigParser(interpolation=None)
+dashboardConfig.read(dashboard_tmpl)
+dashboard = open(dashboard_tmpl, "r")
+dashboard_content = dashboard.read()
+dashboard.close()
+os.chdir("..")
+
+
 
 #change owner
 filename = "/neteye/shared/icingaweb2/conf/dashboards"
@@ -59,9 +63,15 @@ grp_own = st.st_gid
 dir_mode = stat.S_ENFMT | stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IXGRP       #directory mode
 f_mode = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP      #file mode
 
+user_ini = "dashboard.ini"
 
 for user in list:
+
     path = user
+
+    if path == "user_dash_tmpl":
+        print("\nWARNING : USER_DASH_TMPL IS DEFINE IN group1_users.txt !\n")
+        quit()
 
     if path !="":
         if not os.path.exists(path):
@@ -98,14 +108,16 @@ for user in list:
                 os.chown(user_ini, usr_own, grp_own)
                 os.chmod(user_ini, f_mode)
 
-                usersConfig = configparser.ConfigParser()
+                usersConfig = configparser.ConfigParser(interpolation=None)
                 usersConfig.read(user_ini)
                 
                 for section in usersConfig.sections():
                     for section2 in dashboardConfig.sections():
                         exist = usersConfig.has_section(section2)
                         if section == section2:
+                            
                             usersConfig[section] = dashboardConfig[section2]
+                            
                         elif exist == False:
                             usersConfig.add_section(section2)
                             if dashboardConfig.has_option(section2, "title"):
@@ -119,3 +131,5 @@ for user in list:
                     usersConfig.write(configfile)
                     configfile.close()
                 os.chdir("..")
+
+print("\n Completed \n")
