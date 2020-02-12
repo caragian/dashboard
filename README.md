@@ -4,7 +4,7 @@ The first step is to create a Director User which will serve as template.
 
 NOTE : Place the directory dashboard_custom in :
 
-  /neteye/shared/icingaweb2/conf/
+             /neteye/shared/icingaweb2/conf/
 
 Requirement is also the creation of a Python Virtualenv.
 
