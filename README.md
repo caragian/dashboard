@@ -4,13 +4,13 @@ The first step is to create a Director User which will serve as template.
 
 NOTE : Place the directory dashboard_custom in :
 
-    /neteye/shared/icingaweb2/conf/
+    [root@mynet /]# /neteye/shared/icingaweb2/conf/
 
 Requirement is also the creation of a Python Virtualenv.
 
     [root@mynet /]# yum install -y python-pip python-virtualenv
     
-    [root@mynet /]# virtualenv custom_dashboard [root@mynet /]#
+    [root@mynet /]# virtualenv custom_dashboard
 
     [root@mynet /]# source $PWD/custom_dashboard/bin/activate
 
