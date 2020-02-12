@@ -22,7 +22,7 @@ Now is necessary to install the module configparser
 
 Modify the users file **"group_users.txt"** with users involved in the new configuration.
 
-**Warning : The Dashboard User Template must not be written in the "group_users.txt"**
+**Warning : The Dashboard User Template must not be written in the "group1_users.txt"**
 
 Run the script
 
