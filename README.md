@@ -12,7 +12,7 @@ Requirement is also the creation of a Python Virtualenv.
     
     [root@mynet /]# virtualenv custom_dashboard [root@mynet /]#
 
-    source $PWD/custom_dashboard/bin/activate
+    [root@mynet /]# source $PWD/custom_dashboard/bin/activate
 
 Now is necessary to install the module configparser
 
