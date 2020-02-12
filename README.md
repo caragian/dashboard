@@ -8,15 +8,15 @@ NOTE : Place the directory dashboard_custom in :
 
 Requirement is also the creation of a Python Virtualenv.
 
-yum install -y python-pip python-virtualenv
+    [root@mynet /]# yum install -y python-pip python-virtualenv
+    
+    [root@mynet /]# virtualenv custom_dashboard [root@mynet /]#
 
-virtualenv custom_dashboard 
-
-source $PWD/custom_dashboard/bin/activate
+    source $PWD/custom_dashboard/bin/activate
 
 Now is necessary to install the module configparser
 
-pip install configparser
+    [root@mynet /]# pip install configparser
 
 
 
