@@ -29,4 +29,4 @@ Run the script
     (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py
 
 
-If doesn't exists a **"dashboard.ini"** for a new user, the first **"dashboard.ini"** will be setted by **"dashboard.ini"** from the Dashboard User Template Directory.
+If doesn't exists a **"dashboard.ini"** for a new user, the first **"dashboard.ini"** will be set by **"dashboard.ini"** from the Dashboard User Template Directory.
