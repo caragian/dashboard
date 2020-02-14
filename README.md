@@ -26,17 +26,29 @@ Clone the Dashboard directory from Github.
 
     (custom_dashboard) [root@mynet custom_dashboard]# git clone https://github.com/caragian/Dashboard.git
     
- Move the script into custom_dashboard directory
+ Move the script into custom_dashboard directory and give it 775 permission
  
     (custom_dashboard) [root@mynet Dashboard] mv insert_dashboard_v0.4.py ../custom_dashboard
+    
+    (custom_dashboard) [root@mynet custom_dashboard] chmod 775 insert_dashboard_v0.4.py
 
-Modify the users file **"group_users.txt"** with users involved in the new configuration.
+Create / Modify the users file with users involved in the new configuration.
 
-**Warning : The Dashboard User Template must not be written in the "group1_users.txt"**
+**Warning : The Dashboard User Template must not be written in the "group_user.txt"**
 
-Run the script
+Run the script specifying the user file and the user template via options and arguments from command line
 
-    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py
+    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py -g group1_user.txt -t user_template
+    
+    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py --help
+    usage: insert_dashboard_v0.4.py [-h] --group USERS_FILE --template USER_DASH_TMPL
 
+    Dashboard Tutorial
 
-If doesn't exists a **"dashboard.ini"** for a new user, the first **"dashboard.ini"** will be set by **"dashboard.ini"** from the Dashboard User Template Directory.
+    optional arguments:
+  
+      --group USERS_FILE, -g USERS_FILE
+                            Choose the User Group
+                            
+      --template USER_DASH_TMPL, -t USER_DASH_TMPL
+                            Choose the Template
