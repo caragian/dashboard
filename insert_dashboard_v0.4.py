@@ -1,6 +1,7 @@
 import os 
 import configparser
 import stat
+import argparse
 # encoding=utf8
 import sys
 reload(sys)
@@ -10,7 +11,17 @@ sys.setdefaultencoding('utf8')
 #file
 
 dashboard_tmpl = "dashboard.ini"
-users_file = sys.argv[1]
+
+parser = argparse.ArgumentParser(description='Dashboard Tutorial')
+parser.add_argument('--group', '-g', dest='users_file', required=True, type=str, help='Choose the User Group')
+parser.add_argument('--template', '-t', dest='user_dash_tmpl', required=True, type=str, help='Choose the Template')
+
+args = parser.parse_args()
+
+
+users_file = args.users_file
+user_dash_tmpl = args.user_dash_tmpl
+
 
 #every line is a user directory
 
@@ -40,7 +51,7 @@ elif not os.path.exists(directory):
 
 #directory user template
 #user_dash_tmpl="user_dash_tmpl"
-user_dash_tmpl = sys.argv[2]
+
 
 os.chdir(user_dash_tmpl)
 dashboardConfig = configparser.ConfigParser(interpolation=None)
