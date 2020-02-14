@@ -9,8 +9,8 @@ sys.setdefaultencoding('utf8')
 
 #file
 
-users_file="group1_users.txt"
 dashboard_tmpl = "dashboard.ini"
+users_file = sys.argv[1]
 
 #every line is a user directory
 
@@ -39,7 +39,8 @@ elif not os.path.exists(directory):
 #read dashboard template
 
 #directory user template
-user_dash_tmpl="user_dash_tmpl" 
+#user_dash_tmpl="user_dash_tmpl"
+user_dash_tmpl = sys.argv[2]
 
 os.chdir(user_dash_tmpl)
 dashboardConfig = configparser.ConfigParser(interpolation=None)
