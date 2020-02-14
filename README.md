@@ -41,12 +41,10 @@ Run the script specifying the user file and the user template via options and ar
     (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py -g group1_user.txt -t user_template
     
     (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py --help
-    usage: insert_dashboard_v0.4.py [-h] --group USERS_FILE --template USER_DASH_TMPL
+    insert_dashboard_v0.4.py --group USERS_FILE --template USER_DASH_TMPL
 
     Dashboard Tutorial
 
-    optional arguments:
-  
       --group USERS_FILE, -g USERS_FILE
                             Choose the User Group
                             
