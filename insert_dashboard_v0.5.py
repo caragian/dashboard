@@ -111,6 +111,8 @@ for user in list:
             os.chown(path, usr_own, grp_own)
             os.chmod(path, dir_mode)
             os.chdir(path)
+        
+
             if not os.path.exists(user_ini):
                 content = open(user_ini, "w") 
                 content.write(dashboard_content)
@@ -125,28 +127,38 @@ for user in list:
                 os.chown(user_ini, usr_own, grp_own)
                 os.chmod(user_ini, f_mode)
 
-                usersConfig = configparser.ConfigParser(interpolation=None)
-                usersConfig.read(user_ini)
+                file_size = os.stat(user_ini)
+
+                if file_size.st_size == 0:
+
+                    content = open(user_ini, "w") 
+                    content.write(dashboard_content)
+                    content.close()
                 
-                for section in usersConfig.sections():
-                    for section2 in dashboardConfig.sections():
-                        exist = usersConfig.has_section(section2)
-                        if section == section2:
-                            
-                            usersConfig[section] = dashboardConfig[section2]
-                            
-                        elif exist == False:
-                            usersConfig.add_section(section2)
-                            if dashboardConfig.has_option(section2, "title"):
-                                title = dashboardConfig.get(section2, "title")
-                                usersConfig.set(section2, "title", title)
-                            if dashboardConfig.has_option(section2, "url"):
-                                url = dashboardConfig.get(section2, "url")
-                                usersConfig.set(section2, "url", url)
-                            
-                with open(user_ini, "w") as configfile:
-                    usersConfig.write(configfile)
-                    configfile.close()
-                os.chdir("..")
+                elif file_size.st_size != 0:
+
+                    usersConfig = configparser.ConfigParser(interpolation=None)
+                    usersConfig.read(user_ini)
+                    
+                    for section in usersConfig.sections():
+                        for section2 in dashboardConfig.sections():
+                            exist = usersConfig.has_section(section2)
+                            if section == section2:
+                                
+                                usersConfig[section] = dashboardConfig[section2]
+                                
+                            elif exist == False:
+                                usersConfig.add_section(section2)
+                                if dashboardConfig.has_option(section2, "title"):
+                                    title = dashboardConfig.get(section2, "title")
+                                    usersConfig.set(section2, "title", title)
+                                if dashboardConfig.has_option(section2, "url"):
+                                    url = dashboardConfig.get(section2, "url")
+                                    usersConfig.set(section2, "url", url)
+                                
+                    with open(user_ini, "w") as configfile:
+                        usersConfig.write(configfile)
+                        configfile.close()
+                    os.chdir("..")
 
 print("\n Completed \n")
