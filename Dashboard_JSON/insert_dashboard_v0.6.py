@@ -1,4 +1,5 @@
 import os, configparser, stat, argparse, json
+from ldap3 import Server, Connection, ALL
 # encoding=utf8
 import sys
 reload(sys)
@@ -8,43 +9,19 @@ dashboard_tmpl = "dashboard.ini"
 
 
 parser = argparse.ArgumentParser(description='Dashboard Tutorial')
-parser.add_argument('--config', '-c', dest='config_file', required=True, type=str, help='Choose Your Config File')
+parser.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Config File')
 parser.add_argument('--local', '-l', dest='local', required=False, type=str, help='Choose Local User')
 parser.add_argument('--ad', '-a', dest='ad', required=False, type=str, help='Choose AD User')
+parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='Choose AD User Template')
 
 args = parser.parse_args()
 config_file = args.config_file
 local = args.local
-ad = args.ad
+ldap_users = args.ad
+tmp_ad = args.tmp_ad
 
-
-with open(config_file) as f:
-  data = json.load(f)
-f.close()
-
-n=0
-user_list = []
-for local_user in data["local_user"]:
-    y=0
-
-    temp = local_user["template"]
-
-    for elemet in local_user:
-        user = local_user["user"][y]
-        y+=1
-        user_list.append(user)
-    os.chdir("/neteye/shared/icingaweb2/conf/")
-
-    directory = "dashboards"
-    if os.path.exists(directory):
-        os.chdir(directory)
-    elif not os.path.exists(directory):
-            os.mkdir(directory)
-            os.chdir(directory)
-
-    #read dashboard template
-
-
+def main_script(temp, user_list):
+    os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
     user_dash_tmpl = temp
     os.chdir(user_dash_tmpl)
     dashboardConfig = configparser.ConfigParser(interpolation=None)
@@ -154,7 +131,72 @@ for local_user in data["local_user"]:
                             configfile.close()
                         os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
   
-    n+=1
+
+
+
+
+
+if config_file:
+    with open(config_file) as f:
+        data = json.load(f)
+    f.close()
+    for local_user in data["local_user"]:
+        user_list = []
+        y=0
+    
+        temp = local_user["template"]
+    
+        for elemet in local_user:
+            user = local_user["user"][y]
+            y+=1
+            user_list.append(user)
+    
+        os.chdir("/neteye/shared/icingaweb2/conf/")
+    
+        directory = "dashboards"
+        if os.path.exists(directory):
+            os.chdir(directory)
+        elif not os.path.exists(directory):
+                os.mkdir(directory)
+                os.chdir(directory)
+        main_script(temp, user_list)
+
+    if ldap_users:
+
+        with open(ldap_users) as f:
+            data = json.load(f)
+        f.close()
+        host = data["config"][0]["host"]
+        port = data["config"][0]["port"]
+        user = data["config"][0]["user"]
+        password = data["config"][0]["password"]
+        base = data["config"][0]["base"]
+        search = data["config"][0]["search"]
+        attr = data["config"][0]["attr"]
+        print(attr)
+        server = Server(host, int(port), get_info=ALL)
+        conn = Connection(server, user, password, auto_bind=True)
+        conn.search(base, search, attributes = attr)
+        
+        
+        result = conn.entries
+
+        
+        ad_list = []
+        for entry in result:
+            value = (json.loads(entry.entry_to_json()))
+            ad_list.append((value["attributes"]["sAMAccountName"][0]))
+
+        conn.unbind()
+        user_list = ad_list
+        print(user_list)
+        temp = tmp_ad
+        main_script(temp, user_list)
+
+
+
+
+
 
 
     
