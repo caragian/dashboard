@@ -55,15 +55,15 @@ Run the script specifying the user file and the user template via options and ar
         "config" : [
 
         {
-            "host" : "wp.lan",
+            "host" : "SECRET",
             "port" : 3268,
-            "user" : "xphxpbzneteye4ldapro",
-            "password" : "qLFDQ8AebvZoWSPoK$ZKFGF5",
+            "user" : "USER",
+            "password" : "PASSWORD",
             "ldap_server" : "server",
             "ldap_user" : "user1",
             "ldap_password": "password",
-            "base" : "dc=wp,dc=lan",
-            "search" : "(&(objectCategory=user)(uid=*,OU=Groups,OU=Common,OU=Wuerth-Phoenix,DC=wp,DC=lan))"
+            "base" : "BASE",
+            "search" : "FILTER"
         }
         ],
         
