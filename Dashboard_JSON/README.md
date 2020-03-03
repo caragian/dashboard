@@ -70,6 +70,6 @@ Run the script specifying the user file and the user template via options and ar
     #DEFINE USERS AND TEMPLATE TO ASSIGN
         "local_user" : [
         { "template" : "win", "user" : [ "User1", "User2" ]  },
-        { "template" : "lin", "user" : [ "User3", "User4" ]   }
+        { "template" : "lin", "user" : [ "User3", "User4" ]  }
         ]
     }
