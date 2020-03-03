@@ -8,16 +8,18 @@ sys.setdefaultencoding('utf8')
 dashboard_tmpl = "dashboard.ini"
 
 
+
 parser = argparse.ArgumentParser(description='Dashboard Tutorial')
 parser.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Config File')
-parser.add_argument('--local', '-l', dest='local', required=False, type=str, help='Choose Local User')
-parser.add_argument('--ad', '-a', dest='ad', required=False, type=str, help='Choose AD User')
+parser.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose AD User')
 parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='Choose AD User Template')
 
 args = parser.parse_args()
+
+
+
 config_file = args.config_file
-local = args.local
-ldap_users = args.ad
+authentication = args.ldap
 tmp_ad = args.tmp_ad
 
 def main_script(temp, user_list):
@@ -161,39 +163,41 @@ if config_file:
                 os.chdir(directory)
         main_script(temp, user_list)
 
-    if ldap_users:
+if authentication:
 
-        with open(ldap_users) as f:
-            data = json.load(f)
-        f.close()
-        host = data["config"][0]["host"]
-        port = data["config"][0]["port"]
-        user = data["config"][0]["user"]
-        password = data["config"][0]["password"]
-        base = data["config"][0]["base"]
-        search = data["config"][0]["search"]
-        attr = data["config"][0]["attr"]
-        print(attr)
-        server = Server(host, int(port), get_info=ALL)
-        conn = Connection(server, user, password, auto_bind=True)
-        conn.search(base, search, attributes = attr)
-        
-        
-        result = conn.entries
+    if tmp_ad == None:
+      print("ERROR !!!!!!!!Choose and template for your AD User !!!!!!!! ERROR")
+      quit()
 
-        
-        ad_list = []
-        for entry in result:
-            value = (json.loads(entry.entry_to_json()))
-            ad_list.append((value["attributes"]["sAMAccountName"][0]))
-
-        conn.unbind()
-        user_list = ad_list
-        print(user_list)
-        temp = tmp_ad
-        main_script(temp, user_list)
+    with open(authentication) as f:
+        data = json.load(f)
+    f.close()
 
 
+    host = data["config"][0]["host"]
+    port = data["config"][0]["port"]
+    user = data["config"][0]["user"]
+    password = data["config"][0]["password"]
+    base = data["config"][0]["base"]
+    search = data["config"][0]["search"]
+    attr = data["config"][0]["attr"]
+    server = Server(host, int(port), get_info=ALL)
+    conn = Connection(server, user, password, auto_bind=True)
+    conn.search(base, search, attributes = attr)
+    
+    
+    result = conn.entries
+
+    
+    ad_list = []
+    for entry in result:
+        value = (json.loads(entry.entry_to_json()))
+        ad_list.append((value["attributes"]["sAMAccountName"][0]))
+
+    conn.unbind()
+    user_list = ad_list
+    temp = tmp_ad
+    main_script(temp, user_list)
 
 
 
