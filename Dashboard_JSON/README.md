@@ -4,7 +4,7 @@ The first step is to create a Director User which will serve as template.
 
 **Configuration > Authentication > Users > + Add a New User**
 
-Run the Script "python_dashboard.sh" to install the necessary requirements.
+Run the Script "python_dashboard_JSON.sh" to install the necessary requirements.
 
     [root@mynet /]# chmod 775 python_dashboard_JSON.sh
     [root@mynet /]# ./python_dashboard_JSON.sh
