@@ -1,0 +1,22 @@
+{   
+    "config" : [
+
+    {
+        "host" : "wp.lan",
+        "port" : 3268,
+        "user" : "xphxpbzneteye4ldapro",
+        "password" : "qLFDQ8AebvZoWSPoK$ZKFGF5",
+        "ldap_server" : "server",
+        "ldap_user" : "user1",
+        "ldap_password": "password",
+        "base" : "dc=wp,dc=lan",
+        "search" : "(&(objectCategory=user)(uid=*,OU=Groups,OU=Common,OU=Wuerth-Phoenix,DC=wp,DC=lan))"
+    }
+    ],
+
+    "local_user" : [
+    { "template" : "win", "user" : [ "User1", "User2" ]  },
+    { "template" : "lin", "user" : [ "User3", "User4" ]  },
+    { "template" : "test", "user" : [ "User76", "User62" ]   }
+    ]
+}
