@@ -28,25 +28,22 @@ Clone the Dashboard directory from Github.
     
  Move the script into custom_dashboard directory and give it 775 permission
  
-    (custom_dashboard) [root@mynet Dashboard] mv insert_dashboard_v0.4.py ../custom_dashboard
+    (custom_dashboard) [root@master Dashboard_JSON]#] mv insert_dashboard_v0.6.py ../custom_dashboard
     
-    (custom_dashboard) [root@mynet custom_dashboard] chmod 775 insert_dashboard_v0.4.py
+    (custom_dashboard) [root@mynet custom_dashboard] chmod 775 insert_dashboard_v0.6.py
 
 Create / Modify the users file with users involved in the new configuration.
 
-**Warning : The Dashboard User Template must not be written in the "group_user.txt"**
+**Warning : The Dashboard User Template must not be written in the "config.json"**
 
 Run the script specifying the user file and the user template via options and arguments from command line
 
-    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py -g group1_user.txt -t user_template
+    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.6.py -c config.json
     
-    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.4.py --help
-    insert_dashboard_v0.4.py --group USERS_FILE --template USER_DASH_TMPL
-
+    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.6.py --help
     Dashboard Tutorial
 
-      --group USERS_FILE, -g USERS_FILE
-                            Choose the User Group
-                            
-      --template USER_DASH_TMPL, -t USER_DASH_TMPL
-                            Choose the Template
+    optional arguments:
+      -h, --help            show this help message and exit
+      --config CONFIG_FILE, -c CONFIG_FILE
+                            Choose Your Config File
