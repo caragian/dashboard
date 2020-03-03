@@ -28,7 +28,7 @@ Clone the Dashboard directory from Github.
     
  Move the script into custom_dashboard directory and give it 775 permission
  
-    (custom_dashboard) [root@mynet Dashboard] mv insert_dashboard_v0.4.py ../custom_dashboard
+    (custom_dashboard) [root@master Dashboard_JSON]# mv insert_dashboard_v0.4.py ../custom_dashboard
     
     (custom_dashboard) [root@mynet custom_dashboard] chmod 775 insert_dashboard_v0.4.py
 
