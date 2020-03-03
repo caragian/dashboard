@@ -6,8 +6,8 @@ The first step is to create a Director User which will serve as template.
 
 Run the Script "python_dashboard.sh" to install the necessary requirements.
 
-    [root@mynet /]# chmod 775 python_dashboard.sh
-    [root@mynet /]# ./python_dashboard.sh
+    [root@mynet /]# chmod 775 python_dashboard_JSON.sh
+    [root@mynet /]# ./python_dashboard_JSON.sh
     
 Active Python Virtualenv
 
