@@ -47,3 +47,29 @@ Run the script specifying the user file and the user template via options and ar
       -h, --help            show this help message and exit
       --config CONFIG_FILE, -c CONFIG_FILE
                             Choose Your Config File
+                            
+**EXAMPLE JSON CONFIG_FILE**
+
+    #CREDENTIALS TO CONNECT TO LDAP SERVER
+    {   
+        "config" : [
+
+        {
+            "host" : "wp.lan",
+            "port" : 3268,
+            "user" : "xphxpbzneteye4ldapro",
+            "password" : "qLFDQ8AebvZoWSPoK$ZKFGF5",
+            "ldap_server" : "server",
+            "ldap_user" : "user1",
+            "ldap_password": "password",
+            "base" : "dc=wp,dc=lan",
+            "search" : "(&(objectCategory=user)(uid=*,OU=Groups,OU=Common,OU=Wuerth-Phoenix,DC=wp,DC=lan))"
+        }
+        ],
+        
+    #DEFINE USERS AND TEMPLATE TO ASSIGN
+        "local_user" : [
+        { "template" : "win", "user" : [ "User1", "User2" ]  },
+        { "template" : "lin", "user" : [ "User3", "User4" ]   }
+        ]
+    }
