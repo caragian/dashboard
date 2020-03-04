@@ -10,12 +10,12 @@ dashboard_tmpl = "dashboard.ini"
 
 
 parser = argparse.ArgumentParser(description='Dashboard Tutorial')
-parser.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Config File')
-parser.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose AD User')
-parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='Choose AD User Template')
+group = parser.add_mutually_exclusive_group()
+group.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Local Config File\n Example: python insert_dashboard_v0.8.py -c config.json', )
+group.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose Your Authentication File LDAP\n Example: python insert_dashboard_v0.8.py -l authentication.json -t root_template')
+parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='Choose User Template Dashboard to deploy\n Example: python insert_dashboard_v0.8.py -l authentication.json -t root_template')
 
 args = parser.parse_args()
-
 
 
 config_file = args.config_file
@@ -137,7 +137,6 @@ def main_script(temp, user_list):
 
 
 
-
 if config_file:
     with open(config_file) as f:
         data = json.load(f)
@@ -165,7 +164,7 @@ if config_file:
 
 if authentication:
 
-    if tmp_ad == None:
+    if tmp_ad is None:
       print("ERROR !!!!!!!!Choose and template for your AD User !!!!!!!! ERROR")
       quit()
 
@@ -200,9 +199,5 @@ if authentication:
     main_script(temp, user_list)
 
 
-
-
-
-    
 
 print("\n Completed \n")
