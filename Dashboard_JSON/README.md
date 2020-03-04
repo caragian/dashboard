@@ -29,6 +29,12 @@ Run the script specifying the user file and the user template via options and ar
       --config CONFIG_FILE, -c CONFIG_FILE
                             Choose Your Config File
                             
+      --ldap LDAP, -l LDAP  Choose AD User
+      
+      --template TMP_AD, -t TMP_AD
+                            Choose AD User Template
+
+                            
 **EXAMPLE JSON CONFIG_FILE**
 
     #CREDENTIALS TO CONNECT TO LDAP SERVER
