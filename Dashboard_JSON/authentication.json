@@ -1,0 +1,14 @@
+{   
+    "config" : [
+
+    {
+        "host" : "mydomain.lan",
+        "port" : 3268,
+        "user" : "AD_USER",
+        "password" : "SECREY",
+        "base" : "dc=My_Domain,dc=lan",
+        "search" : "(&(objectCategory=user)(memberOf=AD_GROU[,OU=Groups,OU=Common,OU=My_OU,DC=My_Domain,DC=lan))",
+        "attr" :  ["sAMAccountName"]
+    }
+    ]
+}
