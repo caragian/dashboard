@@ -46,7 +46,7 @@ Run the script specifying the user file and the user template via options and ar
     
  **EXAMPLE JSON CREDENTIALS FILE TO LDAP SERVER**
  
- The specify the group to deploy the dashboard, is necessary to change the field **memberOf=CN=xxxxx**
+ To specify the group to deploy the dashboard, is necessary to change the field **memberOf=CN=xxxxx**
  
      {   
         "config" : [
