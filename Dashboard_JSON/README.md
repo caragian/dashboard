@@ -35,25 +35,30 @@ Run the script specifying the user file and the user template via options and ar
                             Choose AD User Template
 
                             
-**EXAMPLE JSON CONFIG_FILE**
+**EXAMPLE JSON CONFIG_FILE FOR LOCAL USERS**
 
-    #CREDENTIALS TO CONNECT TO LDAP SERVER
-    {   
-        "config" : [
-
-        {
-            "host" : "SECRET",
-            "port" : 3268,
-            "user" : "USER",
-            "password" : "PASSWORD",
-            "base" : "BASE",
-            "search" : "FILTER"
-        }
-        ],
-        
     #DEFINE USERS AND TEMPLATE TO ASSIGN
         "local_user" : [
         { "template" : "win", "user" : [ "User1", "User2" ]  },
         { "template" : "lin", "user" : [ "User3", "User4" ]  }
+        ]
+    }
+    
+ **EXAMPLE JSON CREDENTIALS FILE TO LDAP SERVER**
+ 
+ The specify the group to deploy the dashboard, is necessary to change the field **memberOf=CN=xxxxx**
+ 
+     {   
+        "config" : [
+
+        {
+            "host" : "xxxxx",
+            "port" : xxxxx,
+            "user" : "xxxxx",
+            "password" : "xxxxx",
+            "base" : "xxxxx",
+            "search" : "(&(objectCategory=user)(memberOf=CN=xxxxx,OU=xxxxx,OU=xxxxx,OU=xxxxx,DC=xxxxx,DC=xxxxx))",
+            "attr" :  ["samAccountName"]
+        }
         ]
     }
