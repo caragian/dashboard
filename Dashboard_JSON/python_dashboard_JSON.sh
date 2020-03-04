@@ -3,10 +3,8 @@ mkdir /neteye/shared/icingaweb2/extras/python_virtual_env
 cd /neteye/shared/icingaweb2/extras/python_virtual_env
 yum install -y python-pip python-virtualenv
 virtualenv custom_dashboard
-sleep 5
-source /neteye/shared/icingaweb2/extras/python_virtual_env/custom_dashboard/bin/activate
-pip install configparser
-pip install ldap3
+sleep 5s
+/neteye/shared/icingaweb2/extras/python_virtual_env/custom_dashboard/bin/pip install configparser ldap3
 cd /root/git-rep
 git clone https://github.com/caragian/Dashboard.git
 cd
