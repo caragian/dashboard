@@ -27,12 +27,16 @@ Run the script specifying the user file and the user template via options and ar
     optional arguments:
       -h, --help            show this help message and exit
       --config CONFIG_FILE, -c CONFIG_FILE
-                            Choose Your Config File
-                            
-      --ldap LDAP, -l LDAP  Choose AD User
-      
+                            Choose Your Local Config File Example: python
+                            insert_dashboard_v0.8.py -c config.json
+      --ldap LDAP, -l LDAP  Choose Your Authentication File LDAP Example: python
+                            insert_dashboard_v0.8.py -l authentication.json -t
+                            root_template
       --template TMP_AD, -t TMP_AD
-                            Choose AD User Template
+                            Choose User Template Dashboard to deploy Example:
+                            python insert_dashboard_v0.8.py -l authentication.json
+                            -t root_template
+
 
                             
 **EXAMPLE JSON CONFIG_FILE FOR LOCAL USERS**
