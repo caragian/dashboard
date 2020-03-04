@@ -6,6 +6,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 dashboard_tmpl = "dashboard.ini"
+dashboard_dir="/neteye/shared/icingaweb2/conf/dashboards"
 
 
 
@@ -23,7 +24,7 @@ authentication = args.ldap
 tmp_ad = args.tmp_ad
 
 def main_script(temp, user_list):
-    os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
+    os.chdir(dashboard_dir)
     user_dash_tmpl = temp
     os.chdir(user_dash_tmpl)
     dashboardConfig = configparser.ConfigParser(interpolation=None)
@@ -31,12 +32,12 @@ def main_script(temp, user_list):
     dashboard = open(dashboard_tmpl, "r")
     dashboard_content = dashboard.read()
     dashboard.close()
-    os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
+    os.chdir(dashboard_dir)
 
 
 
     #change owner
-    filename = "/neteye/shared/icingaweb2/conf/dashboards"
+    filename = dashboard_dir
     st = os.stat(filename)
     usr_own = st.st_uid
     grp_own = st.st_gid
@@ -77,7 +78,7 @@ def main_script(temp, user_list):
                 os.chown(user_ini, usr_own, grp_own)
                 os.chmod(user_ini, f_mode)
 
-                os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
+                os.chdir(dashboard_dir)
             elif os.path.exists(path):
 
                 os.chown(path, usr_own, grp_own)
@@ -93,7 +94,7 @@ def main_script(temp, user_list):
                     os.chown(user_ini, usr_own, grp_own)
                     os.chmod(user_ini, f_mode)
                     
-                    os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
+                    os.chdir(dashboard_dir)
                 elif os.path.exists(user_ini):
 
                     os.chown(user_ini, usr_own, grp_own)
@@ -131,7 +132,7 @@ def main_script(temp, user_list):
                         with open(user_ini, "w") as configfile:
                             usersConfig.write(configfile)
                             configfile.close()
-                        os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
+                        os.chdir(dashboard_dir)
   
 
 
@@ -165,7 +166,7 @@ if config_file:
 if authentication:
 
     if tmp_ad is None:
-      print("ERROR !!!!!!!!Choose and template for your AD User !!!!!!!! ERROR")
+      print("ERROR !!!!!!!! Choose and template for your AD User !!!!!!!! ERROR")
       quit()
 
     with open(authentication) as f:
@@ -198,6 +199,6 @@ if authentication:
     temp = tmp_ad
     main_script(temp, user_list)
 
-
+    
 
 print("\n Completed \n")
