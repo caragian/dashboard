@@ -8,7 +8,7 @@ sleep 5s
 cd /root/git-rep
 git clone https://github.com/caragian/Dashboard.git
 cd
-cd git-rep/Dashboard/Dashboard_JSON/
+cd neteye_community/Dashboard/Dashboard_JSON/
 chmod 775 insert_dashboard.py
 cp insert_dashboard.py /neteye/shared/icingaweb2/extras/custom_dashboard
 cp config.json /neteye/shared/icingaweb2/extras/custom_dashboard
