@@ -1,4 +1,4 @@
-mkdir /neteye/shared/icingaweb2/extras/custom_dashboard
+mkdir -p /neteye/shared/icingaweb2/extras/custom_dashboard
 mkdir /neteye/shared/icingaweb2/extras/python_virtual_env
 cd /neteye/shared/icingaweb2/extras/python_virtual_env
 yum install -y python-pip python-virtualenv
