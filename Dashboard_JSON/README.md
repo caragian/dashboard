@@ -11,13 +11,15 @@ Run the Script "python_dashboard_JSON.sh" to install the necessary requirements.
     
 Active Python Virtualenv
 
-    source /neteye/shared/icingaweb2/python_virtual_env/custom_dashboard/bin/activate
+    source /neteye/shared/icingaweb2/extras/python_virtual_env/custom_dashboard/bin/activate
 
 Create / Modify the users file with users involved in the new configuration.
 
 **Warning : The Dashboard User Template must not be written in the "config.json"**
 
 Run the script specifying the user file and the user template via options and arguments from command line
+
+    (custom_dashboard) [root@mynet ]# cd source /neteye/shared/icingaweb2/extras/custom_dashboard
 
     (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard.py -c config.json
     (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard.py -l authentication.json -t user_temp    
@@ -38,6 +40,7 @@ Run the script specifying the user file and the user template via options and ar
                             -t root_template
 
 
+To exit to the Python Virtualenv (custum_dashbaord) type **deactivate**
                             
 **EXAMPLE JSON CONFIG_FILE FOR LOCAL USERS**
 
