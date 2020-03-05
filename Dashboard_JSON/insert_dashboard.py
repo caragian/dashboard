@@ -154,13 +154,10 @@ if config_file:
     f.close()
     for local_user in data["local_user"]:
         user_list = []
-        y=0
     
         temp = local_user["template"]
     
-        for elemet in local_user:
-            user = local_user["user"][y]
-            y+=1
+        for user in local_user["user"]:
             user_list.append(user)
     
         os.chdir("/neteye/shared/icingaweb2/conf/")
