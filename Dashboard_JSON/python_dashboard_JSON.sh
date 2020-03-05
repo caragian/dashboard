@@ -11,6 +11,13 @@ chmod 775 insert_dashboard.py
 
 
 
+#Perform ldapsearch of group
+```
+ldapsearch -D "username" -W -p 3268 -h xxx.xxx -b "dc=xxx,dc=xxx" -s sub "(objectclass=Group)"
+
+```
+
+
 
 
 
