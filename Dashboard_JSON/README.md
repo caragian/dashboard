@@ -40,7 +40,7 @@ Run the script specifying the user file and the user template via options and ar
                             -t root_template
 
 
-To exit to the Python Virtualenv (custum_dashbaord) type **deactivate**
+To exit to the Python Virtualenv (custum_dashboard) type **deactivate**
                             
 **EXAMPLE JSON CONFIG_FILE FOR LOCAL USERS**
 
