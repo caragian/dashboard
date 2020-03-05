@@ -7,8 +7,6 @@ import os, configparser, stat, argparse, json
 from ldap3 import Server, Connection, ALL
 # encoding=utf8
 import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 dashboard_tmpl = "dashboard.ini"
 
@@ -23,7 +21,7 @@ parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str,
 args = parser.parse_args()
 
 if args is None:
-    quit()
+    sys.exit(1)
 
 
 

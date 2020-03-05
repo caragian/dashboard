@@ -2,13 +2,14 @@
     "config" : [
 
     {
-        "host" : "mydomain.lan",
+        "host" : "wp.lan",
         "port" : 3268,
-        "user" : "AD_USER",
-        "password" : "SECREY",
-        "base" : "dc=My_Domain,dc=lan",
-        "search" : "(&(objectCategory=user)(memberOf=AD_GROU[,OU=Groups,OU=Common,OU=My_OU,DC=My_Domain,DC=lan))",
+        "user" : "xphxpbzneteye4ldapro",
+        "password" : "qLFDQ8AebvZoWSPoK$ZKFGF5",
+        "base" : "dc=wp,dc=lan",
+        "search" : "(&(objectCategory=user)(memberOf=CN=si.rm,OU=Groups,OU=Roma,OU=Wuerth-Phoenix,DC=wp,DC=lan))",
         "attr" :  ["sAMAccountName"]
     }
     ]
 }
+
