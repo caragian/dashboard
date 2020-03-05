@@ -65,7 +65,8 @@ def main_script(temp, user_list):
 
     for user in user_list:
 
-        path = user
+
+        path = user.lower()
 
         if path == "user_dash_tmpl":
             print("\nWARNING : USER_DASH_TMPL IS DEFINE IN group1_users.txt !\n")
