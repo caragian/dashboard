@@ -2,12 +2,12 @@
     "config" : [
 
     {
-        "host" : "wp.lan",
+        "host" : "LAN",
         "port" : 3268,
-        "user" : "xphxpbzneteye4ldapro",
-        "password" : "qLFDQ8AebvZoWSPoK$ZKFGF5",
-        "base" : "dc=wp,dc=lan",
-        "search" : "(&(objectCategory=user)(memberOf=CN=si.rm,OU=Groups,OU=Roma,OU=Wuerth-Phoenix,DC=wp,DC=lan))",
+        "user" : "USER",
+        "password" : "SECRET",
+        "base" : "dc=domain,dc=lan",
+        "search" : "(&(objectCategory=user)(memberOf=CN=xxxx,OU=Groups,OU=xxx,OU=xxxx,DC=wp,DC=domain))",
         "attr" :  ["sAMAccountName"]
     }
     ]
