@@ -1,3 +1,8 @@
+# Deployment script for dashboard deploy
+#
+# (C) 2020 Nicolae Caragia, Würth Phoenix GmbH
+#
+
 import os, configparser, stat, argparse, json
 from ldap3 import Server, Connection, ALL
 # encoding=utf8
@@ -6,17 +11,20 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 dashboard_tmpl = "dashboard.ini"
-dashboard_dir="/neteye/shared/icingaweb2/conf/dashboards"
 
 
 
 parser = argparse.ArgumentParser(description='Dashboard Tutorial')
 group = parser.add_mutually_exclusive_group()
-group.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Local Config File\n Example: python insert_dashboard_v0.8.py -c config.json', )
-group.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose Your Authentication File LDAP\n Example: python insert_dashboard_v0.8.py -l authentication.json -t root_template')
-parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='Choose User Template Dashboard to deploy\n Example: python insert_dashboard_v0.8.py -l authentication.json -t root_template')
+group.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Config File')
+group.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose AD User')
+parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='Choose AD User Template')
 
 args = parser.parse_args()
+
+if args is None:
+    quit()
+
 
 
 config_file = args.config_file
@@ -24,7 +32,7 @@ authentication = args.ldap
 tmp_ad = args.tmp_ad
 
 def main_script(temp, user_list):
-    os.chdir(dashboard_dir)
+    os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
     user_dash_tmpl = temp
     os.chdir(user_dash_tmpl)
     dashboardConfig = configparser.ConfigParser(interpolation=None)
@@ -32,12 +40,12 @@ def main_script(temp, user_list):
     dashboard = open(dashboard_tmpl, "r")
     dashboard_content = dashboard.read()
     dashboard.close()
-    os.chdir(dashboard_dir)
+    os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
 
 
 
     #change owner
-    filename = dashboard_dir
+    filename = "/neteye/shared/icingaweb2/conf/dashboards"
     st = os.stat(filename)
     usr_own = st.st_uid
     grp_own = st.st_gid
@@ -78,7 +86,7 @@ def main_script(temp, user_list):
                 os.chown(user_ini, usr_own, grp_own)
                 os.chmod(user_ini, f_mode)
 
-                os.chdir(dashboard_dir)
+                os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
             elif os.path.exists(path):
 
                 os.chown(path, usr_own, grp_own)
@@ -94,7 +102,7 @@ def main_script(temp, user_list):
                     os.chown(user_ini, usr_own, grp_own)
                     os.chmod(user_ini, f_mode)
                     
-                    os.chdir(dashboard_dir)
+                    os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
                 elif os.path.exists(user_ini):
 
                     os.chown(user_ini, usr_own, grp_own)
@@ -132,8 +140,9 @@ def main_script(temp, user_list):
                         with open(user_ini, "w") as configfile:
                             usersConfig.write(configfile)
                             configfile.close()
-                        os.chdir(dashboard_dir)
+                        os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
   
+
 
 
 
@@ -166,7 +175,7 @@ if config_file:
 if authentication:
 
     if tmp_ad is None:
-      print("ERROR !!!!!!!! Choose and template for your AD User !!!!!!!! ERROR")
+      print("ERROR !!!!!!!!Choose and template for your AD User !!!!!!!! ERROR")
       quit()
 
     with open(authentication) as f:
