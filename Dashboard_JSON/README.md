@@ -19,9 +19,9 @@ Create / Modify the users file with users involved in the new configuration.
 
 Run the script specifying the user file and the user template via options and arguments from command line
 
-    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.7.py -c config.json
-    
-    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard_v0.7.py --help
+    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard.py -c config.json
+    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard.py -l authentication.json -t user_temp    
+    (custom_dashboard) [root@mynet custom_dashboard]# python insert_dashboard.py --help
     Dashboard Tutorial
 
     optional arguments:
