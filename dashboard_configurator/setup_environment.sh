@@ -3,7 +3,7 @@ yum --enablerepo=neteye-extras install python3-devel.x86_64 python3-pip.noarch p
 
 # Configure
 # Create folders and copy files
-echo "Going to configure foldrs and files..."
+echo "Going to configure folders and files..."
 mkdir -p /neteye/shared/icingaweb2/extras/custom_dashboard
 mkdir /neteye/shared/icingaweb2/extras/python_virtual_env
 
