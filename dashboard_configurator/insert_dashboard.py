@@ -188,7 +188,12 @@ if authentication:
     attr = data["config"][0]["attr"]
     server = Server(host, int(port), get_info=ALL)
     conn = Connection(server, user, password, auto_bind=True)
+
+    print("\nSuccessfully Connection To Server LDAP \n")
     conn.search(base, search, attributes = attr)
+
+
+
     
     
     result = conn.entries
@@ -201,9 +206,14 @@ if authentication:
 
     conn.unbind()
     user_list = ad_list
+
+    
+
     temp = tmp_ad
     main_script(temp, user_list)
 
+    print("Deployed Dashboard: ",temp, " For: \n")
+    print(*user_list, sep=", ")
     
 
 print("\n Completed \n")
