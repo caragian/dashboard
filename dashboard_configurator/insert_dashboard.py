@@ -7,9 +7,10 @@ import os, configparser, stat, argparse, json
 from ldap3 import Server, Connection, ALL
 # encoding=utf8
 import sys
+import logging
 
 dashboard_tmpl = "dashboard.ini"
-
+logging.basicConfig(level=logging.DEBUG)
 
 
 parser = argparse.ArgumentParser(description='Dashboard Tutorial')
@@ -82,6 +83,7 @@ def main_script(temp, user_list):
 
 
         path = user.lower()
+        logging.debug("[i] Defining dashboard path and configuration file for user: %s" %user)
 
         if path == "user_dash_tmpl":
             print("\nWARNING : USER_DASH_TMPL IS DEFINE IN group1_users.txt !\n")
@@ -89,6 +91,7 @@ def main_script(temp, user_list):
 
         if path !="":
             if not os.path.exists(path):
+                logging.debug("[+] Going to create dashboard path for user: %s" %path)
 
                 os.mkdir(path)
                 os.chown(path, usr_own, grp_own)
@@ -203,23 +206,29 @@ if authentication:
     base = data["config"][0]["base"]
     search = data["config"][0]["search"]
     attr = data["config"][0]["attr"]
+    logging.debug("OK")
     server = Server(host, int(port), get_info=ALL)
+    logging.debug("Server OK")
     conn = Connection(server, user, password, auto_bind=True)
+    logging.debug("CONN")
 
     print("\nSuccessfully Connection To Server LDAP \n")
     conn.search(base, search, attributes = attr)
 
 
-
+    logging.debug("Ok")
     
     
     result = conn.entries
 
-    
+    # Get list of users in AD group
+    logging.debug("Starting to read users from AD Group. Results:\n %s" %(result))
+
     ad_list = []
     for entry in result:
         value = (json.loads(entry.entry_to_json()))
         ad_list.append((value["attributes"]["sAMAccountName"][0]))
+        logging.debug("[i] Found user in AD Group: %s" %value["attributes"]["sAMAccountName"][0])
 
     conn.unbind()
     user_list = ad_list
