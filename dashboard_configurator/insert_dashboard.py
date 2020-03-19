@@ -15,19 +15,36 @@ dashboard_tmpl = "dashboard.ini"
 parser = argparse.ArgumentParser(description='Dashboard Tutorial')
 group = parser.add_mutually_exclusive_group()
 group.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Config File')
-group.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose AD User')
-parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='Choose AD User Template')
+group.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose your AD Config File for Authentication')
+parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='In addition to --ldap/-l, Choose your User Template for distribution')
 
 args = parser.parse_args()
 
-if args is None:
+
+def helpOption():
+
+    print("\nERROR  No arguments ERROR\n")
+    print("insert_dashboard.py [-h] [--config CONFIG_FILE] [--ldap LDAP] [--template TMP_AD]")
+    print("--config / -c      Choose your Config_File")
+    print("--ldap / -l        Choose your AD Config File for Authentication")
+    print("--template -t      In addition to --ldap/-l, Choose your User Template for distribution\n")
+    print("\nExample:\n")
+    print("python3 insert_dashboard.py -c config.json")
+    print("python3 insert_dashboard.py -l authentication.json -t template_windows\n")
+
+
+
+
+# The list of command line arguments passed to a Python script. argv[0] is the script name. So:
+if len(sys.argv) == 1:
+    helpOption()
     sys.exit(1)
-
-
 
 config_file = args.config_file
 authentication = args.ldap
 tmp_ad = args.tmp_ad
+
+
 
 def main_script(temp, user_list):
     os.chdir("/neteye/shared/icingaweb2/conf/dashboards")
