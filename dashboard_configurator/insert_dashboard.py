@@ -13,11 +13,12 @@ dashboard_tmpl = "dashboard.ini"
 logging.basicConfig(level=logging.DEBUG)
 
 
-parser = argparse.ArgumentParser(description='Dashboard Tutorial')
+parser = argparse.ArgumentParser(description='Dashboard Tutorial || For more info and examples type "python3 insert_dashboard.py"')
 group = parser.add_mutually_exclusive_group()
-group.add_argument('--config', '-c', dest='config_file', required=False, type=str, help='Choose Your Config File')
-group.add_argument('--ldap', '-l', dest='ldap', required=False, type=str, help='Choose your AD Config File for Authentication')
-parser.add_argument('--template', '-t', dest='tmp_ad', required=False, type=str, help='In addition to --ldap/-l, Choose your User Template for distribution')
+group.add_argument('-c', dest='config_file', required=False, type=str, help='Choose Your Config File')
+group.add_argument('-l', dest='ldap', required=False, type=str, help='Choose your AD Config File for Authentication')
+parser.add_argument('-t', dest='tmp_ad', required=False, type=str, help='In addition to -l, Choose your User Template for distribution')
+parser.add_argument('-d', dest='discover', required=False, type=str, help='Discover Users from AD Group', action='store')
 
 args = parser.parse_args()
 
@@ -25,13 +26,17 @@ args = parser.parse_args()
 def helpOption():
 
     print("\nERROR  No arguments ERROR\n")
-    print("insert_dashboard.py [-h] [--config CONFIG_FILE] [--ldap LDAP] [--template TMP_AD]")
-    print("--config / -c      Choose your Config_File")
-    print("--ldap / -l        Choose your AD Config File for Authentication")
-    print("--template -t      In addition to --ldap/-l, Choose your User Template for distribution\n")
+    print("insert_dashboard.py [-h] [--c CONFIG_FILE] [--l LDAP] [--t TMP_AD] [--d DISCOVER]")
+    print("-c      Choose your Config_File")
+    print("-l      Choose your AD Config File for Authentication")
+    print("-t      In addition to -l, Choose your User Template for distribution")
+    print("-d      Discover Users from AD Group\n")
     print("\nExample:\n")
     print("python3 insert_dashboard.py -c config.json")
-    print("python3 insert_dashboard.py -l authentication.json -t template_windows\n")
+    print("python3 insert_dashboard.py -l authentication.json -t template_windows")
+    print("python3 insert_dashboard.py -l authentication.json -d admin_group")
+    print("python3 insert_dashboard.py -l authentication.json -d admin_group -t template_windows\n")
+    
 
 
 
@@ -44,7 +49,7 @@ if len(sys.argv) == 1:
 config_file = args.config_file
 authentication = args.ldap
 tmp_ad = args.tmp_ad
-
+discover = args.discover
 
 
 def main_script(temp, user_list):
@@ -79,6 +84,7 @@ def main_script(temp, user_list):
 
     user_ini = "dashboard.ini"
 
+    print(" \n")
     for user in user_list:
 
 
@@ -189,10 +195,7 @@ if config_file:
         main_script(temp, user_list)
 
 if authentication:
-
-    if tmp_ad is None:
-      print("ERROR !!!!!!!!Choose and template for your AD User !!!!!!!! ERROR")
-      quit()
+    deploy = None
 
     with open(authentication) as f:
         data = json.load(f)
@@ -204,42 +207,84 @@ if authentication:
     user = data["config"][0]["user"]
     password = data["config"][0]["password"]
     base = data["config"][0]["base"]
-    search = data["config"][0]["search"]
+   
     attr = data["config"][0]["attr"]
     logging.debug("OK")
     server = Server(host, int(port), get_info=ALL)
-    logging.debug("Server OK")
+    logging.debug("Server OK\n")
+    logging.debug("Connection to LDAP in progress....")
     conn = Connection(server, user, password, auto_bind=True)
     logging.debug("CONN")
 
-    print("\nSuccessfully Connection To Server LDAP \n")
-    conn.search(base, search, attributes = attr)
+    print(" \n")
+    logging.debug("Successfully Connection To Server LDAP \n")
+   
+
+    if discover:
+
+        search = "(&(objectCategory=user)(memberOf=CN=" + discover + ",OU=Groups,OU=Common,OU=Wuerth-Phoenix,DC=wp,DC=lan))"
+
+        conn.search(base, search, attributes = attr)
 
 
-    logging.debug("Ok")
-    
-    
-    result = conn.entries
+        logging.debug("Ok")
 
-    # Get list of users in AD group
-    logging.debug("Starting to read users from AD Group. Results:\n %s" %(result))
+        result = conn.entries
 
-    ad_list = []
-    for entry in result:
-        value = (json.loads(entry.entry_to_json()))
-        ad_list.append((value["attributes"]["sAMAccountName"][0]))
-        logging.debug("[i] Found user in AD Group: %s" %value["attributes"]["sAMAccountName"][0])
+        logging.debug("Starting to read users from AD Group. Results:\n")
+        ad_list = []
+        for entry in result:
+            value = (json.loads(entry.entry_to_json()))
+            ad_list.append((value["attributes"]["sAMAccountName"][0]))
+            logging.debug("[i] Found user in AD Group: %s" %value["attributes"]["sAMAccountName"][0])
 
-    conn.unbind()
-    user_list = ad_list
+        if len(ad_list) == 0: 
+            logging.debug("[i] ERROR No user in AD Group '"+ discover +"'")
 
-    
+        test = conn.unbind()
 
-    temp = tmp_ad
-    main_script(temp, user_list)
+        user_list = ad_list
 
-    print("Deployed Dashboard: ",temp, " For: \n")
-    print(*user_list, sep=", ")
+        if tmp_ad is None:
+            sys.exit(1)
+        else:
+            temp = tmp_ad
+            main_script(temp, user_list)
+
+            deploy = 1
+            
+    if deploy is None:
+
+        
+        if tmp_ad is None:
+            print("ERROR !!!!!!!!Choose and template for your AD User !!!!!!!! ERROR")
+            sys.exit(1)
+        else:
+            search = data["config"][0]["search"]
+
+            conn.search(base, search, attributes = attr)
+
+
+            logging.debug("Ok")
+
+            result = conn.entries
+
+            ad_list = []
+            for entry in result:
+                value = (json.loads(entry.entry_to_json()))
+                ad_list.append((value["attributes"]["sAMAccountName"][0]))
+                logging.debug("[i] Found user in AD Group: %s" %value["attributes"]["sAMAccountName"][0])
+
+            conn.unbind()
+            user_list = ad_list
+
+
+            temp = tmp_ad
+            main_script(temp, user_list)
+
+    elif deploy == 1:
+        print(" \n")
+        logging.debug("Deploy DONE")
     
 
 print("\n Completed \n")
