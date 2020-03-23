@@ -5,7 +5,7 @@ This script allows you to deploy a template dashboard to
 - all members of a specific AD group 
 
 
-### 1 Create a template dashboard via Director
+### 1. Create a template dashboard via Director
 The first step is to create a Director User which will serve as template.
 
 **Configuration > Authentication > Users > + Add a New User**
@@ -14,7 +14,7 @@ Create a suitable dashboard we can deploy.
 Hint: Dashboard is stored in dashboard.ini within a folder having the same name as the user:
 example: /neteye/shared/icingaweb2/conf/dashboards/tmpl_1/dashboard.ini
 
-### 2 Setup: Prepare the environment
+### 2. Setup: Prepare the environment
 
 Follow the single steps as commands from "setup_environment.sh" to install the necessary requirements.
 As alternative execute the script making sure to check provided output.
@@ -25,7 +25,7 @@ As alternative execute the script making sure to check provided output.
 ```
     
 
-### 3A Configuration of AD Group based deployment
+### 3.A Configuration of AD Group based deployment
 
 Troubleshooting: Perform ldapsearch of group
 Install dependencies if needed:
@@ -66,7 +66,7 @@ Take this path and assemble authentication.json
     }
 ```
 
-### 3B Configuration of Local user list based deployment
+### 3.B Configuration of Local user list based deployment
 
 EXAMPLE JSON CONFIG_FILE FOR LOCAL USERS
 
@@ -79,7 +79,7 @@ EXAMPLE JSON CONFIG_FILE FOR LOCAL USERS
     }
 ```
 
-### 4 Script execution
+### 4. Script execution
 
 Scipt is executed using the python 3 envirionent created during setup:
 
@@ -114,3 +114,20 @@ Script help page:
                             python insert_dashboard.py -l authentication.json
                             -t root_template
 ```
+
+
+## 5. Discover Users From AD Group
+
+Run the script with a parameter -d to just discover the users from AD group and show the usernames (samaccountnames) in console.
+   
+    python3 insert_dashboard.py -l authentication.json -d admin_group
+    
+ To activate the distribution of dashboards to discovered users is necessary to add only the template -t.
+    
+    python3 insert_dashboard.py -l authentication.json -d admin_group -t template_windows
+
+ 
+ 
+
+        
+
