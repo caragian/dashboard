@@ -83,13 +83,13 @@ EXAMPLE JSON CONFIG_FILE FOR LOCAL USERS
 
 Scipt is executed using the python 3 envirionent created during setup:
 
-- Go into the intallation paht of custom_dashboard
+- Go into the intallation path of custom_dashboard
 - Run script indicating the LDAP-authentication file and the name of the template 
 ```
 cd /neteye/shared/icingaweb2/extras/custom_dashboard/
 ../python_virtual_env/custom_dashboard/bin/python3 insert_dashboard.py --ldap authentication.json --template tmpl_1
 ```
-
+- To run script indicating the LDAP-authentication file and the User Group manually view ***point 5***
 Executing script with list of local users:
 ```
 ../python_virtual_env/custom_dashboard/bin/python3 insert_dashboard.py -c config.json
