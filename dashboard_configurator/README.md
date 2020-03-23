@@ -99,16 +99,15 @@ Executing script with list of local users:
 Script help page:
 ```
 ../python_virtual_env/custom_dashboard/bin/python3 insert_dashboard.py --help
-   Dashboard Tutorial || For more info and examples type "python3
-insert_dashboard.py"
+Dashboard Tutorial || For more info and examples type "python3 insert_dashboard.py"
 
-optional arguments:
-  -h, --help      show this help message and exit
-  -c CONFIG_FILE  Choose Your Config File
-  -l LDAP         Choose your AD Config File for Authentication
-  -t TMP_AD       In addition to -l, Choose your User Template for
-                  distribution
-  -d DISCOVER     Discover Users from AD Group
+    optional arguments:
+      -h, --help      show this help message and exit
+      -c CONFIG_FILE  Choose Your Config File
+      -l LDAP         Choose your AD Config File for Authentication
+      -t TMP_AD       In addition to -l, Choose your User Template for
+                      distribution
+      -d DISCOVER     Discover Users from AD Group
 
 ```
 
