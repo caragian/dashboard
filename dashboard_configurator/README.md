@@ -90,6 +90,7 @@ cd /neteye/shared/icingaweb2/extras/custom_dashboard/
 ../python_virtual_env/custom_dashboard/bin/python3 insert_dashboard.py --ldap authentication.json --template tmpl_1
 ```
 - To run script indicating the LDAP-authentication file and the User Group manually view ***point 5***
+
 Executing script with list of local users:
 ```
 ../python_virtual_env/custom_dashboard/bin/python3 insert_dashboard.py -c config.json
